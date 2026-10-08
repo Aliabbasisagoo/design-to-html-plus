@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import hero from "@/assets/hero.jpg";
+import { ConcernHelper } from "@/components/ConcernHelper";
 
 // Replace these with the clinic's real details.
 const WHATSAPP = "923000000000";
@@ -101,7 +102,9 @@ function Index() {
         </div>
       </section>
 
-      <section className="py-16">
+      <ConcernHelper wa={wa} btnPrimary={primary} />
+
+      <section className="bg-secondary py-16">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-center text-3xl font-semibold">Why Choose Us</h2>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -115,7 +118,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="timings" className="scroll-mt-16 bg-secondary py-16">
+      <section id="timings" className="scroll-mt-16 py-16">
         <div className="mx-auto max-w-2xl px-4">
           <h2 className="text-center text-3xl font-semibold">Clinic Hours</h2>
           <div className="mt-8 divide-y rounded-xl border bg-card">
