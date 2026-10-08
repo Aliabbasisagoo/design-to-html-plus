@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Store admissions-agent threads and messages in Lovable Cloud behind user-scoped RLS because conversation history must persist securely across sessions.
+- The admissions agent works without sign-in; chat history is kept in the visitor's browser (localStorage) and the chat API is stateless, because visitors must not need an account.
