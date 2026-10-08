@@ -29,7 +29,7 @@ End with: "This is not a diagnosis — a dentist will examine you at your visit.
 If the message is not about teeth or mouth, choose "Dental Checkup & Consultation" and say so politely.`;
 
 export const suggestService = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => z.object({ concern: z.string().trim().min(5).max(1000) }).parse(d))
+  .validator((d: unknown) => z.object({ concern: z.string().trim().min(5).max(1000) }).parse(d))
   .handler(async ({ data }) => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { error: "The assistant is not configured yet." };
