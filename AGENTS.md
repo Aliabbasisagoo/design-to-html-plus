@@ -9,4 +9,3 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- The admissions agent works without sign-in; chat history is kept in the visitor's browser (localStorage) and the chat API is stateless, because visitors must not need an account.

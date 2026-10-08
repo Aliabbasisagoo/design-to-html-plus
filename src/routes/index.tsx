@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import hero from "@/assets/hero.jpg";
 import { ConcernHelper } from "@/components/ConcernHelper";
-import { AgentWidget } from "@/components/AgentWidget";
 
 // Replace these with the clinic's real details.
 const WHATSAPP = "923000000000";
@@ -162,7 +161,6 @@ function Index() {
         <p className="mt-2">WhatsApp / Phone: {PHONE} · {ADDRESS}</p>
         <p className="mt-2">© 2026 Smile Care Dental Clinic. All rights reserved.</p>
       </footer>
-      <AgentWidget />
     </div>
   );
 }
