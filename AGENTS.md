@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Store admissions-agent threads and messages in Lovable Cloud behind user-scoped RLS because conversation history must persist securely across sessions.

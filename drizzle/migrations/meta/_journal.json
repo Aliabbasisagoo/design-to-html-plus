@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791464108171,
+      "tag": "0000_create_agent_conversations",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791464356364,
+      "tag": "0001_add_agent_message_deduplication_constraint",
+      "breakpoints": true
+    }
+  ]
+}
