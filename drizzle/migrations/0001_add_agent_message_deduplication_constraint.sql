@@ -1,0 +1,1 @@
+ALTER TABLE public.agent_messages ADD CONSTRAINT agent_messages_thread_sdk_message_unique UNIQUE (thread_id, sdk_message_id);
