@@ -31,7 +31,7 @@ If the message is not about teeth or mouth, choose "Dental Checkup & Consultatio
 export const suggestService = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => z.object({ concern: z.string().trim().min(5).max(1000) }).parse(d))
   .handler(async ({ data }) => {
-    const apiKey = process.env.LOVABLE_API_KEY;
+    const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { error: "The assistant is not configured yet." };
     const { createOpenAI } = await import("@ai-sdk/openai");
     const { streamText } = await import("ai");
