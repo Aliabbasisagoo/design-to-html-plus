@@ -3,12 +3,11 @@ import { useState } from "react";
 import hero from "@/assets/hero.jpg";
 import { ConcernHelper } from "@/components/ConcernHelper";
 
-// Replace these with the clinic's real details.
-const WHATSAPP = "923000000000";
-const PHONE = "+92 300 0000000";
-const ADDRESS = "[Full clinic address], Islamabad";
-const LANDMARK = "[Nearby landmark]";
-const MAPS = "https://maps.google.com/?q=Islamabad";
+const WHATSAPP = "923499690647";
+const PHONE = "+92 349 9690647";
+const ADDRESS = "Office No. 11, 3rd Floor, Plot #12 N, Pakland Square, G-8 Markaz, Islamabad 44090";
+const LANDMARK = "Pakland Square, G-8 Markaz";
+const MAPS = "https://www.google.com/maps/place/Bite+Squad+Dental+Studio+Islamabad+G-8+Markaz/@33.6967052,73.0488842,17z/data=!3m1!4b1!4m6!3m5!1s0x38dfbf025e15c5f7:0x63f2cc33348ef90f!8m2!3d33.6967052!4d73.0514645!16s%2Fg%2F11njb8dc0b";
 const wa = (t?: string) => `https://wa.me/${WHATSAPP}${t ? `?text=${encodeURIComponent(t)}` : ""}`;
 
 const desc = `Trusted dental clinic in Islamabad with 5+ years experience. Checkups, cleaning, whitening, braces, implants. Book on WhatsApp ${PHONE}.`;
