@@ -160,6 +160,8 @@ html { scroll-behavior: smooth; }
 a:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 3px; }
 section:focus { outline: none; }
 @media (min-width: 768px) and (max-width: 1100px) {
+ .clinic-hero { min-height: 660px; }
+ .hero-copy { padding-top: 32px; }
  .clinic-wordmark { font-size: 80px; }
  .hero-copy .reveal { max-width: 440px; }
 }
