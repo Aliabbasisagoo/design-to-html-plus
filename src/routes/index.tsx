@@ -4,7 +4,8 @@ import { ArrowUpRight, ArrowDown, Phone, MapPin, Menu, X, Star, MoveUpRight, Clo
 import { Button } from "@/components/ui/button";
 import { DentalScene } from "@/components/DentalScene";
 import { clinic } from "@/lib/clinic";
-import clinicPhoto from "@/assets/cosmetico-clinic.jpg.asset.json";
+import clinicPhotoUrl from "@/assets/cosmetico-room.jpg";
+const clinicPhoto = { url: clinicPhotoUrl };
 import stillLife from "@/assets/dental-still-life.jpg";
 
 export const Route = createFileRoute("/")({
