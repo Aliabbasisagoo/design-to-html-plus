@@ -146,7 +146,7 @@
 }
 body { font-family: "DM Sans", system-ui, sans-serif; font-size: 16px; }
 main img { max-width: 100%; }
-h1,h2,h3 { font-family: "Manrope", system-ui, sans-serif; }
+h1,h2,h3 { font-family: "Manrope", system-ui, sans-serif; text-wrap: balance; }
 html { scroll-behavior: smooth; }
 .clinic-hero { min-height: 620px; height: calc(100svh - 162px); max-height: 820px; overflow: hidden; }
 .clinic-wordmark { font-size: 104px; line-height: 1; letter-spacing: 0; }
@@ -167,8 +167,15 @@ section:focus { outline: none; }
 }
 @keyframes reveal-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 767px) {
- .clinic-hero { min-height: 820px; height: auto; }
+ .clinic-hero { display: flex; flex-direction: column; min-height: 0; height: auto; max-height: none; }
+ .hero-copy { order: 1; width: 100%; height: auto; padding-top: 32px; }
  .clinic-wordmark { font-size: 57px; }
- .scene-host { top: 610px; bottom: 68px; }
+ .scene-host { position: relative; order: 2; inset: auto; width: 100%; height: 260px; margin-top: 8px; }
+ .hero-footer { position: relative; order: 3; inset: auto; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; margin: 0 24px; padding-bottom: 20px; }
+ .hero-footer > * { min-width: 0; }
+}
+@media (max-width: 359px) {
+ .clinic-wordmark { font-size: 48px; }
+ .hero-footer { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; } }

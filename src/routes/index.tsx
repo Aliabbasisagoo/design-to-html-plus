@@ -33,13 +33,13 @@ function Index() {
   return <main>
     <a href="#home" className="skip-link">Skip to clinic content</a>
     <header className="relative z-20 border-b border-primary/10 bg-background">
-      <div className="mx-auto flex h-[86px] max-w-[1400px] items-center justify-between gap-4 px-6 md:px-12">
-        <a href="#home" className="flex items-center gap-3 text-primary" aria-label="Cosmetico Dental Clinic home">
-          <Sparkles className="size-8" strokeWidth={1.4} />
-          <span className="text-xl font-bold leading-tight">cosmetico<span className="block text-[9px] font-medium uppercase tracking-[0.18em]">Dental Clinic · Islamabad</span></span>
+      <div className="mx-auto grid h-[86px] max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 sm:flex sm:justify-between md:px-12">
+        <a href="#home" className="flex min-w-0 items-center gap-3 text-primary" aria-label="Cosmetico Dental Clinic home">
+          <Sparkles className="size-8 shrink-0" strokeWidth={1.4} />
+          <span className="min-w-0 text-xl font-bold leading-tight">cosmetico<span className="block text-[9px] font-medium uppercase tracking-[0.18em]">Dental Clinic · Islamabad</span></span>
         </a>
         <nav className="hidden items-center gap-8 lg:flex">{nav.map(([label, href]) => <a className="text-sm text-muted-foreground transition-colors hover:text-primary" href={href} key={href}>{label}</a>)}</nav>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <Button asChild className="hidden h-11 rounded-full px-6 sm:inline-flex"><a href={`tel:${clinic.telephone}`}>Book a visit <ArrowUpRight /></a></Button>
            <Button variant="ghost" size="icon" className="size-11 lg:hidden" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} aria-controls="clinic-navigation" onClick={() => setMenu(!menu)} onKeyDown={event => { if (event.key === "Escape") setMenu(false); }}>{menu ? <X /> : <Menu />}</Button>
         </div>
@@ -65,7 +65,7 @@ function Index() {
           </a>
         </div>
       </div>
-      <div className="absolute inset-x-6 bottom-6 flex items-center justify-between border-t border-primary/15 pt-4 text-xs text-muted-foreground md:inset-x-12">
+      <div className="hero-footer absolute inset-x-6 bottom-6 flex items-center justify-between border-t border-primary/15 pt-4 text-xs text-muted-foreground md:inset-x-12">
         <span className="flex items-center gap-2"><MapPin className="size-3.5" /> F-7 Markaz, Islamabad</span>
         <a href="#clinic" className="flex items-center gap-2">A closer look <ArrowDown className="size-3.5" /></a>
       </div>
@@ -82,7 +82,7 @@ function Index() {
     <section id="clinic" className="scroll-mt-8 px-6 py-20 md:px-12 md:py-28">
       <div className="mx-auto max-w-[1304px]">
         <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="eyebrow text-muted-foreground">01 / The clinic</p><h2 className="mt-4 text-4xl font-medium leading-tight md:text-5xl">Your smile.<br />Our focus.</h2></div><p className="max-w-sm leading-7 text-muted-foreground">Visit Cosmetico Dental Clinic at Cosmetico by Dr Kamal in F-7 Markaz. A space to discuss your concerns and plan your dental care.</p></div>
-        <figure><img src={clinicPhoto.url} alt="The actual Cosmetico Dental Clinic treatment room, with dental chair and equipment" width={1200} height={900} loading="lazy" className="max-h-[620px] w-full rounded-lg object-cover" /><figcaption className="mt-3 flex flex-wrap justify-between gap-2 text-xs text-muted-foreground"><span>Inside Cosmetico Dental Clinic · Islamabad</span><a href="https://maps.google.com/maps/contrib/115726546594166315945" target="_blank" rel="noopener noreferrer">Photo: Cosmetico Dental · Google Maps ↗</a></figcaption></figure>
+        <figure className="mx-auto max-w-[1040px]"><img src={clinicPhoto.url} alt="The actual Cosmetico Dental Clinic treatment room, with dental chair and equipment" width={1200} height={900} loading="lazy" decoding="async" className="block h-auto w-full rounded-lg" /><figcaption className="mt-3 grid gap-2 text-xs leading-5 text-muted-foreground sm:grid-cols-[minmax(0,1fr)_auto]"><span>Inside Cosmetico Dental Clinic · Islamabad</span><a href="https://maps.google.com/maps/contrib/115726546594166315945" target="_blank" rel="noopener noreferrer">Photo: Cosmetico Dental · Google Maps ↗</a></figcaption></figure>
       </div>
     </section>
 
