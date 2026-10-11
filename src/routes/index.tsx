@@ -31,6 +31,7 @@ function Index() {
   const [menu, setMenu] = useState(false);
   const [faq, setFaq] = useState<number | null>(0);
   return <main>
+    <a href="#home" className="skip-link">Skip to clinic content</a>
     <header className="relative z-20 border-b border-primary/10 bg-background">
       <div className="mx-auto flex h-[86px] max-w-[1400px] items-center justify-between gap-4 px-6 md:px-12">
         <a href="#home" className="flex items-center gap-3 text-primary" aria-label="Cosmetico Dental Clinic home">
@@ -40,13 +41,13 @@ function Index() {
         <nav className="hidden items-center gap-8 lg:flex">{nav.map(([label, href]) => <a className="text-sm text-muted-foreground transition-colors hover:text-primary" href={href} key={href}>{label}</a>)}</nav>
         <div className="flex items-center gap-2">
           <Button asChild className="hidden h-11 rounded-full px-6 sm:inline-flex"><a href={`tel:${clinic.telephone}`}>Book a visit <ArrowUpRight /></a></Button>
-          <Button variant="ghost" size="icon" className="lg:hidden" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} onClick={() => setMenu(!menu)}>{menu ? <X /> : <Menu />}</Button>
+           <Button variant="ghost" size="icon" className="size-11 lg:hidden" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} aria-controls="clinic-navigation" onClick={() => setMenu(!menu)} onKeyDown={event => { if (event.key === "Escape") setMenu(false); }}>{menu ? <X /> : <Menu />}</Button>
         </div>
       </div>
-      {menu && <nav className="absolute inset-x-0 top-full flex flex-col gap-5 border-b bg-background p-6 lg:hidden">{nav.map(([l, h]) => <a key={h} href={h} onClick={() => setMenu(false)}>{l}</a>)}<a href={`tel:${clinic.telephone}`}>Call to book</a></nav>}
+       {menu && <nav id="clinic-navigation" aria-label="Clinic navigation" className="absolute inset-x-0 top-full flex flex-col gap-2 border-b bg-background p-6 lg:hidden" onKeyDown={event => { if (event.key === "Escape") { setMenu(false); document.querySelector<HTMLButtonElement>('[aria-controls="clinic-navigation"]')?.focus(); } }}>{nav.map(([l, h]) => <a className="flex min-h-11 items-center" key={h} href={h} onClick={() => setMenu(false)}>{l}</a>)}<a className="flex min-h-11 items-center" href={`tel:${clinic.telephone}`}>Call to book</a></nav>}
     </header>
 
-    <section id="home" className="clinic-hero relative bg-secondary">
+    <section id="home" tabIndex={-1} aria-label="Cosmetico Dental Clinic" className="clinic-hero relative bg-secondary">
       <div className="scene-host"><DentalScene /></div>
       <div className="hero-copy relative mx-auto h-full max-w-[1400px] px-6 pt-14 md:px-12 md:pt-20">
         <div className="reveal max-w-[580px]">
