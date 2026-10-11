@@ -148,13 +148,23 @@ body { font-family: "DM Sans", system-ui, sans-serif; font-size: 16px; }
 main img { max-width: 100%; }
 h1,h2,h3 { font-family: "Manrope", system-ui, sans-serif; }
 html { scroll-behavior: smooth; }
-.clinic-hero { min-height: 670px; height: calc(100svh - 86px); max-height: 900px; overflow: hidden; }
+.clinic-hero { min-height: 620px; height: calc(100svh - 162px); max-height: 820px; overflow: hidden; }
 .clinic-wordmark { font-size: 104px; line-height: 1; letter-spacing: 0; }
 .scene-host { position: absolute; inset: 0; }
 .hero-copy { pointer-events: none; }
 .hero-copy a { pointer-events: auto; }
 .eyebrow { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; }
 .reveal { animation: reveal-in .9s ease-out both; }
+.skip-link { position: fixed; top: 12px; left: 24px; z-index: 50; padding: 12px 20px; background: var(--primary); color: var(--primary-foreground); border-radius: var(--radius); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+a:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 3px; }
+section:focus { outline: none; }
+@media (min-width: 768px) and (max-width: 1100px) {
+ .clinic-hero { min-height: 660px; }
+ .hero-copy { padding-top: 32px; }
+ .clinic-wordmark { font-size: 80px; }
+ .hero-copy .reveal { max-width: 440px; }
+}
 @keyframes reveal-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 767px) {
  .clinic-hero { min-height: 820px; height: auto; }
