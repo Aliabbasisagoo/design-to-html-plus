@@ -3,7 +3,7 @@ import { Environment, Lightformer, ContactShadows } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
-function Sculpture({ reduced }: { reduced: boolean }) {
+function Sculpture({ reduced, tooth }: { reduced: boolean; tooth: string }) {
   const group = useRef<THREE.Group>(null);
   const time = useRef(0);
   const { size } = useThree();
@@ -35,7 +35,7 @@ function Sculpture({ reduced }: { reduced: boolean }) {
   return <group position={[narrow ? 0 : 2.3, 0, 0]}>
     <group ref={group} rotation={[0.08, -0.35, -0.12]}>
       <mesh geometry={geometry} castShadow>
-        <meshPhysicalMaterial color="var(--tooth)" roughness={0.22} metalness={0.04} clearcoat={1} clearcoatRoughness={0.12} />
+        <meshPhysicalMaterial color={tooth} roughness={0.22} metalness={0.04} clearcoat={1} clearcoatRoughness={0.12} />
       </mesh>
     </group>
     <ContactShadows position={[0, -2.15, 0]} opacity={0.25} scale={8} blur={2.8} far={5} resolution={256} />
@@ -44,12 +44,13 @@ function Sculpture({ reduced }: { reduced: boolean }) {
 
 export function DentalScene() {
   const [reduced, setReduced] = useState(false);
-  const [colors, setColors] = useState({ tooth: "#f6f5ed", light: "#d6e7dd" });
+  const [colors, setColors] = useState<{ tooth: string; light: string } | null>(null);
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     const css = getComputedStyle(document.documentElement);
     setColors({ tooth: css.getPropertyValue("--scene-tooth").trim(), light: css.getPropertyValue("--scene-light").trim() });
   }, []);
+  if (!colors) return null;
   return <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0.6, 9], fov: 42 }} gl={{ antialias: true, alpha: true }} aria-label="Animated ceramic dental sculpture">
     <ambientLight intensity={0.65} />
     <directionalLight position={[4, 6, 5]} intensity={2.5} color={colors.tooth} />
@@ -57,6 +58,6 @@ export function DentalScene() {
       <Lightformer intensity={3} position={[-4, 4, 5]} scale={[5, 7, 1]} color={colors.tooth} />
       <Lightformer intensity={2} position={[5, 1, -2]} rotation-y={-Math.PI / 2} scale={[5, 8, 1]} color={colors.light} />
     </Environment>
-    <Sculpture reduced={reduced} />
+    <Sculpture reduced={reduced} tooth={colors.tooth} />
   </Canvas>;
 }
