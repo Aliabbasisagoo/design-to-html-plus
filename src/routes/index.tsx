@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowUpRight, ArrowDown, Phone, MapPin, Menu, X, Star, MoveUpRight, Clock, Plus, Minus, Tooth, Check } from "lucide-react";
+import { ArrowUpRight, ArrowDown, Phone, MapPin, Menu, X, Star, MoveUpRight, Clock, Plus, Minus, Sparkles, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DentalScene } from "@/components/DentalScene";
 import { clinic } from "@/lib/clinic";
@@ -34,7 +34,7 @@ function Index() {
     <header className="relative z-20 border-b border-primary/10 bg-background">
       <div className="mx-auto flex h-[86px] max-w-[1400px] items-center justify-between gap-4 px-6 md:px-12">
         <a href="#home" className="flex items-center gap-3 text-primary" aria-label="Cosmetico Dental Clinic home">
-          <Tooth className="size-8" strokeWidth={1.4} />
+          <Sparkles className="size-8" strokeWidth={1.4} />
           <span className="text-xl font-bold leading-tight">cosmetico<span className="block text-[9px] font-medium uppercase tracking-[0.18em]">Dental Clinic · Islamabad</span></span>
         </a>
         <nav className="hidden items-center gap-8 lg:flex">{nav.map(([label, href]) => <a className="text-sm text-muted-foreground transition-colors hover:text-primary" href={href} key={href}>{label}</a>)}</nav>
