@@ -158,6 +158,6 @@ html { scroll-behavior: smooth; }
 @media (max-width: 767px) {
  .clinic-hero { min-height: 820px; height: auto; }
  .clinic-wordmark { font-size: 57px; }
- .scene-host { top: 345px; bottom: 68px; }
+ .scene-host { top: 535px; bottom: 68px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; } }
