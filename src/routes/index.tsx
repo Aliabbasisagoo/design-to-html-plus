@@ -1,165 +1,111 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import hero from "@/assets/hero.jpg";
-import { ConcernHelper } from "@/components/ConcernHelper";
-
-const WHATSAPP = "923499690647";
-const PHONE = "+92 349 9690647";
-const ADDRESS = "Office No. 11, 3rd Floor, Plot #12 N, Pakland Square, G-8 Markaz, Islamabad 44090";
-const LANDMARK = "Pakland Square, G-8 Markaz";
-const MAPS = "https://www.google.com/maps/place/Bite+Squad+Dental+Studio+Islamabad+G-8+Markaz/@33.6967052,73.0488842,17z/data=!3m1!4b1!4m6!3m5!1s0x38dfbf025e15c5f7:0x63f2cc33348ef90f!8m2!3d33.6967052!4d73.0514645!16s%2Fg%2F11njb8dc0b";
-const wa = (t?: string) => `https://wa.me/${WHATSAPP}${t ? `?text=${encodeURIComponent(t)}` : ""}`;
-
-const desc = `Trusted dental clinic in Islamabad with 5+ years experience. Checkups, cleaning, whitening, braces, implants. Book on WhatsApp ${PHONE}.`;
-const title = "Smile Care Dental Clinic | Dentist in Islamabad — Book Appointment";
+import { ArrowUpRight, ArrowDown, Phone, MapPin, Menu, X, Star, MoveUpRight, Clock, Plus, Minus, Sparkles, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { DentalScene } from "@/components/DentalScene";
+import { clinic } from "@/lib/clinic";
+import clinicPhoto from "@/assets/cosmetico-clinic.jpg.asset.json";
+import stillLife from "@/assets/dental-still-life.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: desc },
-      { property: "og:title", content: title },
-      { property: "og:description", content: desc },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  ssr: false,
+  head: () => ({ meta: [
+    { title: "Cosmetico Dental Clinic | F-7 Markaz, Islamabad" },
+    { name: "description", content: "Visit Cosmetico Dental Clinic in F-7 Markaz, Islamabad. Call +92 339 8480200. Open Monday–Saturday, 10 AM–6 PM." },
+    { property: "og:title", content: "Cosmetico Dental Clinic — Islamabad" },
+    { property: "og:description", content: "Dental care in F-7 Markaz. Explore our clinic and call to arrange your visit." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: Index,
 });
 
-const services = [
-  ["🩺", "Dental Checkup & Consultation", "Routine exams, X-rays, and treatment planning."],
-  ["✨", "Teeth Cleaning (Scaling & Polishing)", "Professional cleaning to remove plaque and stains."],
-  ["😁", "Teeth Whitening", "Safe, in-clinic whitening for a brighter smile."],
-  ["🦷", "Fillings & Root Canal", "Tooth-colored fillings and painless root canal treatment."],
-  ["🪥", "Tooth Extraction", "Simple and surgical extractions by experienced dentists."],
-  ["😬", "Braces & Aligners", "Metal, ceramic, and clear aligner options."],
-  ["🔩", "Dental Implants", "Permanent replacement for missing teeth."],
-  ["👑", "Crowns & Bridges", "Restore damaged or missing teeth with custom fittings."],
-  ["🧒", "Kids Dentistry", "Gentle, friendly dental care for children."],
-  ["🚑", "Emergency Dental Care", "Same-day care for pain, swelling, or broken teeth."],
+const nav = [["The clinic", "#clinic"], ["Your visit", "#visit"], ["Patient stories", "#reviews"]];
+const faqs = [
+  ["How do I book an appointment?", "Call +92 339 8480200 to speak with the clinic and confirm a convenient appointment time."],
+  ["Where is the clinic located?", "Cosmetico Dental Clinic is at Cosmetico by Dr Kamal, F-7 Markaz, Islamabad, 44210. Use our directions link to open the exact Google Maps location."],
+  ["When can I visit?", "The Google listing shows Monday to Saturday, 10:00 AM to 6:00 PM, with Sunday closed. Please call ahead to confirm your appointment."],
+  ["Can I ask about treatments and fees?", "Yes. Call the clinic to discuss your dental concern, available treatments, and current fees. Your dentist will advise after an assessment."],
 ];
-const why = [["🏅", "5+ Years of Experience"], ["👩‍⚕️", "Experienced Dentists"], ["🔬", "Modern Equipment"], ["🧼", "Clean & Sterile Environment"]];
-const hours = [
-  ["Monday – Friday", "9:00 AM – 1:00 PM · 3:00 PM – 8:00 PM"],
-  ["Saturday", "10:00 AM – 2:00 PM"],
-  ["Sunday", "Closed"],
-];
-const nav = [["Home", "#home"], ["Services", "#services"], ["Timings", "#timings"], ["About", "#about"], ["Contact", "#contact"]];
-
-const btn = "inline-flex min-h-11 items-center justify-center rounded-lg px-5 font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
-const primary = `${btn} bg-primary text-primary-foreground hover:bg-primary/90`;
-const outline = `${btn} border border-primary text-primary bg-background hover:bg-accent`;
-
 function Index() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div id="home">
-      <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <a href="#home" className="font-[Poppins] text-lg font-semibold text-primary">Smile Care Dental Clinic</a>
-          <nav className="hidden gap-6 md:flex">
-            {nav.map(([l, h]) => <a key={h} href={h} className="text-sm hover:text-primary">{l}</a>)}
-          </nav>
-          <a href={wa()} target="_blank" rel="noopener" className={`${primary} hidden md:inline-flex`}>Book Appointment</a>
-          <button aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen(!open)} className="min-h-11 min-w-11 text-2xl md:hidden">☰</button>
+  const [menu, setMenu] = useState(false);
+  const [faq, setFaq] = useState<number | null>(0);
+  return <main>
+    <header className="relative z-20 border-b border-primary/10 bg-background">
+      <div className="mx-auto flex h-[86px] max-w-[1400px] items-center justify-between gap-4 px-6 md:px-12">
+        <a href="#home" className="flex items-center gap-3 text-primary" aria-label="Cosmetico Dental Clinic home">
+          <Sparkles className="size-8" strokeWidth={1.4} />
+          <span className="text-xl font-bold leading-tight">cosmetico<span className="block text-[9px] font-medium uppercase tracking-[0.18em]">Dental Clinic · Islamabad</span></span>
+        </a>
+        <nav className="hidden items-center gap-8 lg:flex">{nav.map(([label, href]) => <a className="text-sm text-muted-foreground transition-colors hover:text-primary" href={href} key={href}>{label}</a>)}</nav>
+        <div className="flex items-center gap-2">
+          <Button asChild className="hidden h-11 rounded-full px-6 sm:inline-flex"><a href={`tel:${clinic.telephone}`}>Book a visit <ArrowUpRight /></a></Button>
+          <Button variant="ghost" size="icon" className="lg:hidden" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} onClick={() => setMenu(!menu)}>{menu ? <X /> : <Menu />}</Button>
         </div>
-        {open && (
-          <nav className="flex flex-col border-t px-4 pb-4 md:hidden">
-            {nav.map(([l, h]) => <a key={h} href={h} onClick={() => setOpen(false)} className="py-3">{l}</a>)}
-            <a href={wa()} target="_blank" rel="noopener" className={primary}>Book Appointment</a>
-          </nav>
-        )}
-      </header>
+      </div>
+      {menu && <nav className="absolute inset-x-0 top-full flex flex-col gap-5 border-b bg-background p-6 lg:hidden">{nav.map(([l, h]) => <a key={h} href={h} onClick={() => setMenu(false)}>{l}</a>)}<a href={`tel:${clinic.telephone}`}>Call to book</a></nav>}
+    </header>
 
-      <section className="relative">
-        <img src={hero} alt="Bright, clean reception area of a modern dental clinic" width={1600} height={1008} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-background/80 md:bg-gradient-to-r md:from-background md:via-background/85 md:to-background/10" />
-        <div className="relative mx-auto max-w-6xl px-4 py-24 md:py-36">
-          <h1 className="max-w-xl text-4xl font-bold md:text-5xl">Healthy Smiles, Expert Care</h1>
-          <p className="mt-4 max-w-md text-lg text-muted-foreground">Trusted dental care in Islamabad for 5+ years. Book your appointment today.</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={wa()} target="_blank" rel="noopener" className={primary}>Book on WhatsApp</a>
-            <a href="#services" className={outline}>View Services</a>
+    <section id="home" className="clinic-hero relative bg-secondary">
+      <div className="scene-host"><DentalScene /></div>
+      <div className="hero-copy relative mx-auto h-full max-w-[1400px] px-6 pt-14 md:px-12 md:pt-20">
+        <div className="reveal max-w-[580px]">
+          <p className="eyebrow flex items-center gap-2 text-primary"><span className="h-2 w-2 rounded-full bg-primary" /> Dental care in F-7 Markaz, Islamabad</p>
+          <h1 className="clinic-wordmark mt-7 font-semibold text-primary">cosmetico<span className="mt-3 block text-2xl font-normal md:text-3xl">Dental Clinic</span></h1>
+          <h2 className="mt-8 max-w-md text-3xl font-medium leading-[1.25] md:text-4xl">A little care.<br />A brighter smile.</h2>
+          <p className="mt-5 max-w-[350px] text-base leading-7 text-muted-foreground">Make time for your smile. Dental care, a personal conversation, and your next step forward.</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Button asChild className="h-12 rounded-full bg-primary px-6"><a href={`tel:${clinic.telephone}`}>Book an appointment <ArrowUpRight /></a></Button>
+            <Button asChild variant="outline" className="h-12 rounded-full border-primary/20 bg-transparent px-5"><a href="#clinic">Discover our clinic <ArrowDown /></a></Button>
           </div>
+          <a href={clinic.maps} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-3 text-sm">
+            <span className="flex gap-0.5 text-primary">{[1,2,3,4,5].map(n => <Star key={n} className="size-3.5 fill-current" />)}</span>
+            <span><strong>5.0</strong> <span className="text-muted-foreground">/ 11 Google reviews</span></span>
+          </a>
         </div>
-      </section>
+      </div>
+      <div className="absolute inset-x-6 bottom-6 flex items-center justify-between border-t border-primary/15 pt-4 text-xs text-muted-foreground md:inset-x-12">
+        <span className="flex items-center gap-2"><MapPin className="size-3.5" /> F-7 Markaz, Islamabad</span>
+        <a href="#clinic" className="flex items-center gap-2">A closer look <ArrowDown className="size-3.5" /></a>
+      </div>
+    </section>
 
-      <section id="services" className="scroll-mt-16 bg-secondary py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-3xl font-semibold">Our Services</h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map(([i, n, d]) => (
-              <div key={n} className="flex flex-col rounded-xl border bg-card p-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-2xl" aria-hidden>{i}</div>
-                <h3 className="mt-4 text-lg font-semibold">{n}</h3>
-                <p className="mt-1 flex-1 text-muted-foreground">{d}</p>
-                <a href={wa(`Hi, I want to book ${n}`)} target="_blank" rel="noopener" className={`${outline} mt-5`}>Book on WhatsApp</a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <ConcernHelper wa={wa} btnPrimary={primary} />
-
-      <section className="bg-secondary py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-3xl font-semibold">Why Choose Us</h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {why.map(([i, t]) => (
-              <div key={t} className="rounded-xl bg-accent p-6 text-center">
-                <div className="text-3xl" aria-hidden>{i}</div>
-                <p className="mt-3 font-semibold">{t}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="timings" className="scroll-mt-16 py-16">
-        <div className="mx-auto max-w-2xl px-4">
-          <h2 className="text-center text-3xl font-semibold">Clinic Hours</h2>
-          <div className="mt-8 divide-y rounded-xl border bg-card">
-            {hours.map(([d, h]) => (
-              <div key={d} className="flex flex-col justify-between gap-1 p-5 sm:flex-row">
-                <span className="font-semibold">{d}</span><span className="text-muted-foreground">{h}</span>
-              </div>
-            ))}
-            <div className="flex flex-col justify-between gap-1 p-5 sm:flex-row">
-              <span className="font-semibold">Emergency</span>
-              <span>Available on call — <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="font-medium text-primary underline">{PHONE}</a></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="scroll-mt-16 py-16">
-        <div className="mx-auto max-w-3xl px-4 text-center">
-          <h2 className="text-3xl font-semibold">About Smile Care Dental Clinic</h2>
-          <p className="mt-6 text-lg text-muted-foreground">Smile Care Dental Clinic has been providing trusted dental care in Islamabad for 5+ years. Our team of qualified dentists uses modern equipment and follows strict hygiene standards to keep your smile healthy.</p>
-        </div>
-      </section>
-
-      <section id="contact" className="scroll-mt-16 bg-accent py-16">
-        <div className="mx-auto max-w-3xl px-4 text-center">
-          <h2 className="text-3xl font-semibold">Book Your Appointment</h2>
-          <a href={wa()} target="_blank" rel="noopener" className={`${primary} mt-8 min-h-14 px-8 text-lg`}>Chat on WhatsApp — {PHONE}</a>
-          <div className="mt-8 grid gap-3 text-left sm:grid-cols-2">
-            <p><strong>Phone:</strong> <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="text-primary underline">{PHONE}</a></p>
-            <p><strong>Address:</strong> {ADDRESS}</p>
-            <p><strong>Landmark:</strong> {LANDMARK}</p>
-            <p><a href={MAPS} target="_blank" rel="noopener" className="text-primary underline">Open in Google Maps</a></p>
-            <p className="sm:col-span-2"><strong>Timings:</strong> Mon–Fri 9–1 & 3–8 · Sat 10–2 · Sun closed</p>
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        <p className="font-semibold text-foreground">Smile Care Dental Clinic</p>
-        <p className="mt-2">WhatsApp / Phone: {PHONE} · {ADDRESS}</p>
-        <p className="mt-2">© 2026 Smile Care Dental Clinic. All rights reserved.</p>
-      </footer>
+    <div className="border-b bg-background">
+      <div className="mx-auto grid max-w-[1400px] gap-5 px-6 py-7 text-sm sm:grid-cols-3 md:px-12">
+        <span className="flex items-center gap-3"><Clock className="size-4 text-muted-foreground" /> Mon–Sat · 10 AM–6 PM</span>
+        <a href={`tel:${clinic.telephone}`} className="flex items-center gap-3 sm:justify-center"><Phone className="size-4 text-muted-foreground" /> {clinic.phone}</a>
+        <a href={clinic.maps} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 sm:justify-end">Find us in Islamabad <ArrowUpRight className="size-4" /></a>
+      </div>
     </div>
-  );
+
+    <section id="clinic" className="scroll-mt-8 px-6 py-20 md:px-12 md:py-28">
+      <div className="mx-auto max-w-[1304px]">
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="eyebrow text-muted-foreground">01 / The clinic</p><h2 className="mt-4 text-4xl font-medium leading-tight md:text-5xl">Your smile.<br />Our focus.</h2></div><p className="max-w-sm leading-7 text-muted-foreground">Visit Cosmetico Dental Clinic at Cosmetico by Dr Kamal in F-7 Markaz. A space to discuss your concerns and plan your dental care.</p></div>
+        <figure><img src={clinicPhoto.url} alt="The actual Cosmetico Dental Clinic treatment room, with dental chair and equipment" width={1200} height={900} loading="lazy" className="max-h-[620px] w-full rounded-lg object-cover" /><figcaption className="mt-3 flex flex-wrap justify-between gap-2 text-xs text-muted-foreground"><span>Inside Cosmetico Dental Clinic · Islamabad</span><a href="https://maps.google.com/maps/contrib/115726546594166315945" target="_blank" rel="noopener noreferrer">Photo: Cosmetico Dental · Google Maps ↗</a></figcaption></figure>
+      </div>
+    </section>
+
+    <section id="visit" className="scroll-mt-8 bg-primary px-6 py-20 text-primary-foreground md:px-12 md:py-24">
+      <div className="mx-auto grid max-w-[1304px] gap-12 md:grid-cols-2 md:gap-20">
+        <div><p className="eyebrow text-primary-foreground/60">02 / Your visit</p><h2 className="mt-5 text-4xl font-medium leading-tight md:text-5xl">Good care starts<br />with a conversation.</h2><p className="mt-6 max-w-md leading-7 text-primary-foreground/70">Whether you have a concern or are planning your next dental visit, speak with the clinic about the right appointment for you.</p><Button asChild className="mt-8 h-12 rounded-full bg-accent px-6 text-accent-foreground hover:bg-accent/90"><a href={`tel:${clinic.telephone}`}>Let’s talk about your smile <ArrowUpRight /></a></Button></div>
+        <div>{[["01", "Get in touch", "Call the clinic and share what brings you in."], ["02", "Arrange your visit", "Confirm a convenient time with the clinic team."], ["03", "Meet your dentist", "Discuss your concerns, treatment options, and fees in person."]].map(([n,t,d]) => <div key={n} className="flex gap-6 border-b border-primary-foreground/20 py-6 first:pt-0"><span className="pt-1 text-xs text-primary-foreground/50">{n}</span><div><h3 className="text-xl font-medium">{t}</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/65">{d}</p></div><Check className="ml-auto mt-1 size-5 shrink-0 text-accent" /></div>)}</div>
+      </div>
+    </section>
+
+    <section id="reviews" className="scroll-mt-8 px-6 py-20 md:px-12 md:py-28">
+      <div className="mx-auto max-w-[1304px]"><div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="eyebrow text-muted-foreground">03 / Patient stories</p><h2 className="mt-4 text-4xl font-medium md:text-5xl">Smiles say it best.</h2></div><a href={clinic.maps} target="_blank" rel="noopener noreferrer" className="text-sm">5.0 on Google · 11 reviews <ArrowUpRight className="inline size-4" /></a></div>
+        <div className="mt-12 grid gap-8 md:grid-cols-3">{[
+          {name:"Syeda Areej Shah", text:"He’s incredibly thorough explaining every step of the process n making sure I’m comfortable throughout my appointments!!", url:"https://www.google.com/maps/contrib/102688568649485602513/reviews"},
+          {name:"Farooq", text:"Suggested a composite buildup for a friend, and he is very happy with the results, worth visiting for dental procedures, good professional attitude", url:"https://www.google.com/maps/contrib/116630743544334749401/reviews"},
+          {name:"Maryam 007", text:"Fully satisfied of doing my dental treatment by Dr. Shaharyar.", url:"https://www.google.com/maps/contrib/113202381222778240286/reviews"},
+        ].map(r => <article key={r.name} className="flex flex-col border-t border-primary/20 pt-6"><div className="flex gap-1 text-primary">{[1,2,3,4,5].map(i => <Star key={i} className="size-3.5 fill-current" />)}</div><blockquote className="mt-6 flex-1 text-lg leading-8">“{r.text}”</blockquote><a className="mt-8 text-sm font-medium" href={r.url} target="_blank" rel="noopener noreferrer">{r.name}<span className="mt-1 block text-xs font-normal text-muted-foreground">Google review · Aug–Sep 2026 ↗</span></a></article>)}</div>
+        <p className="mt-8 text-xs text-muted-foreground">Review excerpts from Google Maps. Rating checked {clinic.verified}.</p>
+      </div>
+    </section>
+
+    <section className="border-t px-6 py-20 md:px-12"><div className="mx-auto grid max-w-[1304px] gap-12 md:grid-cols-2"><div><p className="eyebrow text-muted-foreground">Before you visit</p><h2 className="mt-4 text-4xl font-medium">A few things<br />you might ask.</h2><img src={stillLife} width={1440} height={960} loading="lazy" alt="Conceptual ceramic tooth and dental mirror still life" className="mt-8 aspect-[3/2] max-w-sm rounded-lg object-cover" /></div><div>{faqs.map(([q,a],i) => <div key={q} className="border-b py-4"><Button variant="ghost" className="h-auto w-full justify-between whitespace-normal px-0 py-3 text-left text-base hover:bg-transparent" onClick={() => setFaq(faq === i ? null : i)} aria-expanded={faq === i}>{q}{faq === i ? <Minus /> : <Plus />}</Button>{faq === i && <p className="pb-4 pr-6 text-sm leading-7 text-muted-foreground">{a}</p>}</div>)}</div></div></section>
+
+    <section id="contact" className="bg-secondary px-6 py-20 md:px-12"><div className="mx-auto max-w-[1304px]"><p className="eyebrow text-muted-foreground">We look forward to seeing you</p><div className="mt-5 flex flex-col justify-between gap-8 md:flex-row md:items-center"><h2 className="text-4xl font-medium md:text-6xl">Your next smile<br />starts here.</h2><Button asChild className="h-14 rounded-full px-8 text-base"><a href={`tel:${clinic.telephone}`}>Call to book <ArrowUpRight /></a></Button></div><div className="mt-14 grid gap-8 border-t border-primary/15 pt-8 md:grid-cols-3"><div><p className="eyebrow text-muted-foreground">Visit</p><p className="mt-3 max-w-xs text-sm leading-7">{clinic.address}</p><a href={clinic.maps} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex gap-2 text-sm font-medium">Get directions <MoveUpRight className="size-4" /></a></div><div><p className="eyebrow text-muted-foreground">Opening hours</p><p className="mt-3 text-sm leading-7">{clinic.hours}<br />{clinic.closed}</p></div><div><p className="eyebrow text-muted-foreground">Contact</p><a href={`tel:${clinic.telephone}`} className="mt-3 block text-xl">{clinic.phone}</a><p className="mt-2 text-xs text-muted-foreground">Call ahead to confirm your visit.</p></div></div></div></section>
+    <footer className="px-6 py-8 md:px-12"><div className="mx-auto flex max-w-[1304px] flex-wrap justify-between gap-4 text-xs text-muted-foreground"><span>© 2026 Cosmetico Dental Clinic</span><span>Clinic details sourced from Google Maps · {clinic.verified}</span><a href="#home">Back to top ↑</a></div></footer>
+  </main>;
 }
